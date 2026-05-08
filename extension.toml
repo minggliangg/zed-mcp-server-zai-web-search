@@ -1,0 +1,9 @@
+id = "zed-mcp-server-zai-web-search"
+name = "Z.AI Web Search"
+description = "Z.AI web search capabilities for Zed via MCP"
+version = "0.1.0"
+schema_version = 1
+authors = ["minggliangg"]
+
+[context_servers.zed-mcp-server-zai-web-search]
+name = "Z.AI Web Search"
