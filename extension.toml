@@ -1,10 +1,10 @@
-id = "zed-mcp-server-zai-web-search"
+id = "mcp-server-zai-web-search"
 name = "Z.AI Web Search"
 description = "Z.AI web search capabilities for Zed via MCP"
 version = "0.1.0"
 schema_version = 1
-authors = ["minggliangg"]
+authors = ["Minggliangg <minggliangg@users.noreply.github.com>"]
 repository = "https://github.com/minggliangg/zed-mcp-server-zai-web-search"
 
-[context_servers.zed-mcp-server-zai-web-search]
+[context_servers.mcp-server-zai-web-search]
 name = "Z.AI Web Search"

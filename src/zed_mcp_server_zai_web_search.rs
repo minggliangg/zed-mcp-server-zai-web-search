@@ -8,7 +8,7 @@ use zed_extension_api::{
 
 const MCP_REMOTE_PACKAGE: &str = "mcp-remote";
 const MCP_REMOTE_VERSION: &str = "0.1.29";
-const SERVER_ID: &str = "zed-mcp-server-zai-web-search";
+const SERVER_ID: &str = "mcp-server-zai-web-search";
 const MCP_URL: &str = "https://api.z.ai/api/mcp/web_search_prime/mcp";
 
 struct ZaiWebSearchExtension;

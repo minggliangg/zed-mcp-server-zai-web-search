@@ -26,7 +26,7 @@ This extension requires a Z.AI API key.
 ```json
 {
   "context_servers": {
-    "zed-mcp-server-zai-web-search": {
+    "mcp-server-zai-web-search": {
       "settings": {
         "zai_api_key": "your-api-key"
       }
