@@ -54,4 +54,4 @@ Install as a development extension in Zed with **Install Development Extension**
 
 ## License
 
-Apache-2.0 - See [LICENSE](LICENSE) for details.
+MIT - See [LICENSE](LICENSE) for details.
