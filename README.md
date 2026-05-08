@@ -1,28 +1,47 @@
-# Z.AI Web Search — Zed Extension
+# Z.AI Web Search MCP Server for Zed
 
-Zed extension that integrates [Z.AI's Web Search MCP server](https://docs.z.ai/devpack/mcp/search-mcp-server.md) for web search capabilities directly in the Zed editor.
+A Zed extension that connects Zed's AI assistant to Z.AI's Web Search MCP server. It provides web search capabilities through Zed's context server integration.
 
-## Setup
+## Features
 
-1. Get an API key from the [Z.AI Console](https://z.ai/manage-apikey/apikey-list)
-2. Install this extension in Zed
-3. Add to your Zed `settings.json`:
+- Searches the web through Z.AI's remote MCP endpoint
+- Passes your Z.AI API key as a bearer token
+- Uses `mcp-remote` to bridge Zed's stdio MCP transport to the remote HTTP server
+- Requires no local MCP server implementation
+
+## Installation
+
+1. Clone or download this repository.
+2. In Zed, run **Install Development Extension** from the command palette.
+3. Select this project directory.
+4. Zed will build and install the extension.
+
+## Configuration
+
+This extension requires a Z.AI API key.
+
+1. Get your API key from [Z.AI Console](https://z.ai/manage-apikey/apikey-list).
+2. Add the API key to your Zed `settings.json`:
 
 ```json
 {
   "context_servers": {
     "zed-mcp-server-zai-web-search": {
       "settings": {
-        "api_key": "your-api-key"
+        "zai_api_key": "your-api-key"
       }
     }
   }
 }
 ```
 
-## How it works
+## Available Tools
 
-The extension uses `mcp-remote` to bridge Zed's stdio-based MCP transport to Z.AI's remote HTTP endpoint. No local Node.js server code needed.
+The available tools are provided by Z.AI's Web Search MCP server and exposed to Zed through this extension.
+
+## How It Works
+
+This extension uses `mcp-remote` to bridge Zed's stdio-based MCP transport to Z.AI's remote HTTP endpoint. When configured, it sends the API key as an `Authorization: Bearer` header.
 
 ## Development
 
@@ -31,4 +50,8 @@ cargo check
 cargo build --target wasm32-wasip1 --release
 ```
 
-Install as a dev extension in Zed via `Cmd+Shift+P` → "install dev extension" → select project root.
+Install as a development extension in Zed with **Install Development Extension** and select the project root.
+
+## License
+
+Apache-2.0 - See [LICENSE](LICENSE) for details.

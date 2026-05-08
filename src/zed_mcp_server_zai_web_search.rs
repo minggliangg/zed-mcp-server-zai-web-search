@@ -1,10 +1,10 @@
 use schemars::JsonSchema;
 use serde::Deserialize;
 
+use zed::settings::ContextServerSettings;
 use zed_extension_api::{
     self as zed, serde_json, Command, ContextServerConfiguration, ContextServerId, Project, Result,
 };
-use zed::settings::ContextServerSettings;
 
 const MCP_REMOTE_PACKAGE: &str = "mcp-remote";
 const MCP_REMOTE_VERSION: &str = "0.1.29";
@@ -16,7 +16,7 @@ struct ZaiWebSearchExtension;
 #[derive(Debug, Deserialize, JsonSchema)]
 struct ZaiWebSearchSettings {
     #[serde(default)]
-    api_key: Option<String>,
+    zai_api_key: Option<String>,
 }
 
 impl zed::Extension for ZaiWebSearchExtension {
@@ -38,11 +38,11 @@ impl zed::Extension for ZaiWebSearchExtension {
         let settings: ZaiWebSearchSettings = if let Some(settings_value) = settings.settings {
             serde_json::from_value(settings_value).map_err(|e| e.to_string())?
         } else {
-            ZaiWebSearchSettings { api_key: None }
+            ZaiWebSearchSettings { zai_api_key: None }
         };
 
         let mut args = vec![MCP_URL.to_string()];
-        if let Some(api_key) = settings.api_key {
+        if let Some(api_key) = settings.zai_api_key {
             args.push("--header".to_string());
             args.push(format!("Authorization: Bearer {}", api_key));
         }
@@ -79,27 +79,24 @@ impl zed::Extension for ZaiWebSearchExtension {
                 if let Ok(my_settings) =
                     serde_json::from_value::<ZaiWebSearchSettings>(settings_value)
                 {
-                    match my_settings.api_key {
+                    match my_settings.zai_api_key {
                         Some(api_key) => {
                             let serialized_api_key =
                                 serde_json::to_string(&api_key).map_err(|e| e.to_string())?;
-                            default_settings = default_settings.replace(
-                                "\"YOUR_API_KEY\"",
-                                &serialized_api_key,
-                            );
+                            default_settings = default_settings
+                                .replace("\"YOUR_ZAI_API_KEY\"", &serialized_api_key);
                         }
                         None => {
                             default_settings =
-                                default_settings.replace("\"YOUR_API_KEY\"", "\"\"");
+                                default_settings.replace("\"YOUR_ZAI_API_KEY\"", "\"\"");
                         }
                     }
                 }
             }
         }
 
-        let settings_schema =
-            serde_json::to_string(&schemars::schema_for!(ZaiWebSearchSettings))
-                .map_err(|e| e.to_string())?;
+        let settings_schema = serde_json::to_string(&schemars::schema_for!(ZaiWebSearchSettings))
+            .map_err(|e| e.to_string())?;
 
         Ok(Some(ContextServerConfiguration {
             installation_instructions,
